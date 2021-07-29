@@ -72,23 +72,9 @@ function draw() {
 // **************************
 
 function windowResized() {
+  setDimensions();
   resizeCanvas(canvasSize, canvasSize);
 }
-
-window.onresize = () => {
-  let w = document.documentElement.clientWidth;
-  let h = document.documentElement.clientHeight;
-
-  // Constrain the canvas to the smallest dimension of the window
-  canvasSize = Math.min(w, h);
-
-  if (hasMaxSize) {
-    canvasSize = Math.min(referenceSize, canvasSize);
-  }
-
-  // windowScale goes from 0.0 to 1.0 as canvasSize goes from 0.0 to referenceSize
-  windowScale = canvasSize / referenceSize;
-};
 
 // **************************
 // *         INPUT          *
