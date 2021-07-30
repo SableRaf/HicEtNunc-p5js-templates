@@ -64,21 +64,6 @@ function keyPressed() {
 }
 
 // **************************
-// *     ACCESSIBILITY      *
-// **************************
-
-// We keep focus outlines active for keyboard users (see css)
-function detectKeyboardUser(e) {
-  // If user presses tab
-  if (e.keyCode === 9) {
-    console.log("Keyboard user detected");
-    document.body.classList.add("keyboardNav");
-    window.removeEventListener("keydown", detectKeyboardUser);
-  }
-}
-window.addEventListener("keydown", detectKeyboardUser);
-
-// **************************
 // * HIC ET NUNC VARIABLES  *
 // **************************
 
