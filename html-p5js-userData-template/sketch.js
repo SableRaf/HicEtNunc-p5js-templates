@@ -26,7 +26,7 @@ const viewer = new URLSearchParams(window.location.search).get("viewer");
 console.log("NFT created by", creator); // null if local
 console.log("NFT viewed by", viewer); // null if local
 
-const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewer
+const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewer (user a different address to try another viewer)
 const UNSYNCED = "false"; // simulate an unsynced user
 
 // Try with DUMMY or UNSYNCED only for debugging
