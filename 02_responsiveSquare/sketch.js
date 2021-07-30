@@ -23,7 +23,7 @@
 // Change to true when minting
 p5.disableFriendlyErrors = false;
 
-// The title of your piece goes here
+// The title of your piece goes here (not visible on hicetnunc)
 document.title = "My beautiful p5.js sketch";
 
 // Default size of your canvas (windowScale = 1.0)
