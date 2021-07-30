@@ -26,6 +26,8 @@ document.title = "My beautiful p5.js sketch";
 // *    GLOBAL VARIABLES    *
 // **************************
 
+let img;
+
 // **************************
 // *        LOADER          *
 // **************************
@@ -44,25 +46,18 @@ function fadeOutLoadingScreen() {
   });
 }
 
-// The function below can be deleted as it is here only for demo purposes
-// source: https://stackoverflow.com/questions/30585420/shorthand-for-empty-function-in-node-js/55336838
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
-
 // **************************
 // *        PRELOAD         *
 // **************************
 
 function preload() {
-  // adding artificial delay just to show the loader
-  sleep(3000); // remove this line from your actual sketch
-
-  fadeOutLoadingScreen();
+  // loading the image a bunch of times to simulate loading a larger file
+  // remove the for loop in your own sketch
+  for (let i = 0; i < 1000; i++) {
+    // Image Credit: Cassini Imaging Team, SSI, JPL, ESA, NASA
+    // https://www.nasa.gov/image-feature/jpl/pia17213/farewell-to-mimas
+    img = loadImage("images/mimas.jpg");
+  }
 }
 
 // **************************
@@ -70,6 +65,7 @@ function preload() {
 // **************************
 
 function setup() {
+  fadeOutLoadingScreen();
   createCanvas(windowWidth, windowHeight);
 }
 
@@ -79,8 +75,8 @@ function setup() {
 
 function draw() {
   background(0);
-  translate(width / 2, height / 2);
-  circle(0, 0, sin(frameCount * 0.01) * min(width, height));
+  let size = min(width, height);
+  image(img, 0, 0, size, size);
 }
 
 function windowResized() {
