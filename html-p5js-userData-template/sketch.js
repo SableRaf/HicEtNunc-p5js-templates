@@ -29,19 +29,19 @@ console.log("NFT viewed by", viewer); // null if local
 const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewer (user a different address to try another viewer)
 const UNSYNCED = "false"; // simulate an unsynced user
 
-// Try with DUMMY or UNSYNCED only for debugging
+// Default is viewer. Try with DUMMY or UNSYNCED only for debugging
 let viewerData = viewer;
 
 // Check if we have a user
-let viewerWasFound = viewer && !viewer.includes("false");
+let viewerWasFound = viewerData && !viewerData.includes("false");
 
 // **************************
 // *       PARAMETERS       *
 // **************************
 
 // Use a random seed by default
-let defaultSeed = Math.floor(Math.random(999999999));
-// let defaultSeed = 123456789;
+let defaultSeed = Math.floor(Math.random() * 999999999);
+//let defaultSeed = 123456789;
 
 // Activate when publishing
 p5.disableFriendlyErrors = false;
@@ -63,8 +63,10 @@ function setup() {
   let viewerSeed;
   if (viewerWasFound) {
     viewerSeed = getHash(viewerData);
+    console.log(`Seed: ${viewerSeed}`);
   } else {
     viewerSeed = defaultSeed;
+    console.log(`No viewer found; using default seed: ${viewerSeed}`);
   }
 
   // Get the same random and noise value every time for a give (synced) user
@@ -72,17 +74,30 @@ function setup() {
   randomSeed(viewerSeed);
 
   createCanvas(windowWidth, windowHeight);
+
+  noStroke();
+
+  colorMode(HSB);
+
+  background(0);
+
+  let hue = random(360);
+
+  fill(hue, 70, 80);
+
+  for (let i = 0; i < 100; i++) {
+    let x = random(width);
+    let y = random(height);
+    let d = random(20, 100);
+    circle(x, y, d);
+  }
 }
 
 // **************************
 // *          DRAW          *
 // **************************
 
-function draw() {
-  background(0);
-  translate(width / 2, height / 2);
-  circle(0, 0, sin(frameCount * 0.01) * min(width, height));
-}
+function draw() {}
 
 // **************************
 // *        RESIZED         *
