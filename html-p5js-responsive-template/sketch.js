@@ -16,7 +16,7 @@
 // *       PARAMETERS       *
 // **************************
 
-// Change to true when minting
+// Set this to true when minting
 p5.disableFriendlyErrors = false;
 
 // The title of your piece goes here (not visible on hicetnunc)

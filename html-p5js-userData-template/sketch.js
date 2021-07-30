@@ -43,7 +43,7 @@ let viewerWasFound = viewerData && !viewerData.includes("false");
 let defaultSeed = Math.floor(Math.random() * 999999999);
 //let defaultSeed = 123456789;
 
-// Activate when publishing
+// Set this to true when minting
 p5.disableFriendlyErrors = false;
 
 // The title of your piece goes here (not visible on hicetnunc)
