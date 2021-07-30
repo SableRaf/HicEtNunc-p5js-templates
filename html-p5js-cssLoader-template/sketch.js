@@ -31,7 +31,21 @@ let img;
 function preload() {
   // Image Credit: Cassini Imaging Team, SSI, JPL, ESA, NASA
   // https://www.nasa.gov/image-feature/jpl/pia17213/farewell-to-mimas
-  img = loadImage("images/mimas.jpg");
+  doFor(() => {
+    img = loadImage("images/mimas.jpg");
+  }, 500);
+}
+
+// Delete the function below. It is here for demo purposes only
+// based on: https://stackoverflow.com/questions/30585420/shorthand-for-empty-function-in-node-js/55336838
+function doFor(action, delayMillis) {
+  let result;
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+    action();
+  } while (currentDate - date < delayMillis);
 }
 
 // **************************
