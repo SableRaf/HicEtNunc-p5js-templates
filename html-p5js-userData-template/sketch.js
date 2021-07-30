@@ -84,20 +84,33 @@ function setup() {
   let hue = random(360);
 
   fill(hue, 70, 80);
-
-  for (let i = 0; i < 100; i++) {
-    let x = random(width);
-    let y = random(height);
-    let d = random(20, 100);
-    circle(x, y, d);
-  }
 }
 
 // **************************
 // *          DRAW          *
 // **************************
 
-function draw() {}
+function draw() {
+  translate(width / 2, height / 2);
+
+  let angle = (frameCount * 0.12) / TWO_PI;
+
+  let scale = min(width, height);
+
+  noiseDetail(4, 0.5);
+  let noiseX = cos(angle) + 1;
+  let noiseY = sin(angle) + 1;
+  let n = noise(noiseX, noiseY);
+  let s = scale * 0.1 * n;
+
+  noiseDetail(2, 0.1);
+  n = noise(noiseX, noiseY);
+  let r = 0.33 * scale - n * 200;
+  let x = cos(angle) * r;
+  let y = sin(angle) * r;
+
+  circle(x, y, s);
+}
 
 // **************************
 // *        RESIZED         *
@@ -105,6 +118,7 @@ function draw() {}
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  background(0);
 }
 
 // **************************
