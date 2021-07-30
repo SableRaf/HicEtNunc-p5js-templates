@@ -69,7 +69,7 @@ function setup() {
     console.log(`No viewer found; using default seed: ${viewerSeed}`);
   }
 
-  // Use the same random and noise value every time for a given (synced) viewer
+  // Use the same random and noise values every time for a given (synced) viewer
   noiseSeed(viewerSeed);
   randomSeed(viewerSeed);
 
