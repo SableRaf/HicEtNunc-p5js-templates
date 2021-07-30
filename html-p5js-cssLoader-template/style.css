@@ -6,11 +6,3 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-
-body:not(.keyboardNav) pre:focus,
-body:not(.keyboardNav) button:focus,
-body:not(.keyboardNav) input:focus,
-body:not(.keyboardNav) select:focus,
-body:not(.keyboardNav) textarea:focus {
-  outline: none;
-}
