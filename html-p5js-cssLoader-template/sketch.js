@@ -29,13 +29,9 @@ let img;
 // **************************
 
 function preload() {
-  // loading the image a bunch of times to simulate loading a larger file
-  // remove the for loop in your own sketch
-  for (let i = 0; i < 800; i++) {
-    // Image Credit: Cassini Imaging Team, SSI, JPL, ESA, NASA
-    // https://www.nasa.gov/image-feature/jpl/pia17213/farewell-to-mimas
-    img = loadImage("images/mimas.jpg");
-  }
+  // Image Credit: Cassini Imaging Team, SSI, JPL, ESA, NASA
+  // https://www.nasa.gov/image-feature/jpl/pia17213/farewell-to-mimas
+  img = loadImage("images/mimas.jpg");
 }
 
 // **************************
