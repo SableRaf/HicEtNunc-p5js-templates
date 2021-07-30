@@ -1,7 +1,6 @@
-// Activate when publishing
-p5.disableFriendlyErrors = false;
+// RESPONSIVE SQUARE TEMPLATE
 
-// Here is a combination of three useful tricks:
+// This template shows a combination of three useful tricks:
 //
 //   1. draw a square canvas that fits in the current window
 //   2. scale the content based on the canvas size
@@ -9,13 +8,28 @@ p5.disableFriendlyErrors = false;
 //
 // Try resizing your sketch window to see the effect
 
+// p5.js template for minting on Hic et Nunc
+// Made for Processing's 20th anniversary Fundraiser
+// By Raphaël de Courville (@sableraph)
+
 // **************************
 // *       PARAMETERS       *
 // **************************
 
+// Change to true when minting
+p5.disableFriendlyErrors = false;
+
+// The title of your piece goes here
+document.title = "My beautiful p5.js sketch";
+
+// Default size of your canvas (windowScale = 1.0)
 const referenceSize = 600;
-const hasMaxSize = false; // if true, then the canvas cannot be larger than the reference size
-const isCentered = true; // if true the canvas will be vertically and horizontally centered
+
+// if true, then the canvas cannot be larger than the reference size
+const hasMaxSize = false;
+
+// if true the canvas will be vertically and horizontally centered
+const isCentered = true;
 
 // **************************
 // *    GLOBAL VARIABLES    *
@@ -53,7 +67,7 @@ function draw() {
   var fontSize = 20 * windowScale; // the fontsize will be 40 when canvasSize == referenceSize
 
   // 💫sometimes it's more intuitive to deal with percentages of the canvas size
-  var diameter = 0.8 * canvasSize; // the circle diameter is 80% of the canvas size
+  var diameter = 0.8 * canvasSize; // here the circle's diameter is 80% of the canvas size
 
   // draw the content
   translate(width / 2, height / 2);
@@ -114,3 +128,34 @@ function centerCanvas() {
   s.alignItems = "center";
   s.justifyContent = "center";
 }
+
+// **************************
+// *     ACCESSIBILITY      *
+// **************************
+
+// We keep focus outlines active for keyboard users (see css)
+function detectKeyboardUser(e) {
+  // If user presses tab
+  if (e.keyCode === 9) {
+    console.log("Keyboard user detected");
+    document.body.classList.add("keyboardNav");
+    window.removeEventListener("keydown", detectKeyboardUser);
+  }
+}
+window.addEventListener("keydown", detectKeyboardUser);
+
+// **************************
+// * HIC ET NUNC VARIABLES  *
+// **************************
+
+// If you want to create OBJKT's with different seeds,
+// you can access the creator and viewer wallet ids.
+// This values will only be injected once the piece has been minted
+// they will not work locally.
+const creator = new URLSearchParams(window.location.search).get("creator");
+const viewer = new URLSearchParams(window.location.search).get("viewer");
+// NOTE: if the user is viewing the page on hicetnunc while unsynced,
+// the viewer variable will return a string of value "false" (NOT a boolean)
+
+console.log("NFT created by", creator); // null if local
+console.log("NFT viewed by", viewer); // null if local
