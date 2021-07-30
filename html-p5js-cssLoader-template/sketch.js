@@ -8,6 +8,10 @@
 // More hicetnunc html templates (three.js, glsl, etc) can be found at
 // https://github.com/hicetnunc2000/hicetnunc/tree/main/templates
 
+// CSS loader code adapted from the ThreeJS loader by Michael Herzog (Mugen87)
+// post: https://stackoverflow.com/questions/49643660/threejs-loading-screen
+// demo: https://jsfiddle.net/vfug1adn/19/
+
 // **************************
 // *       PARAMETERS       *
 // **************************
