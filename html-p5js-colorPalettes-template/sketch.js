@@ -20,17 +20,20 @@ const paletteArray = [
   "https://coolors.co/515a6b-d6f634-fd7643-fc3b55-1787f0-fd4768-24de5f",
 ];
 
+let colors = [];
+
 function getRandomColorsFrom(palArray) {
-  let paletteString = palArray[Math.floor(Math.random() * palArray.length)];
-  console.log("🎨 color palette: " + paletteString);
-  let colorArray = paletteString
-    .match(/[0-9a-f]{6}/g)
-    .map((c) => `#${c}`)
-    .map((s) => color(s));
+  let paletteUrl = palArray[floor(random(palArray.length))];
+  console.log("🎨 color palette: " + paletteUrl);
+  let colorArray = paletteUrl.match(/[0-9a-f]{6}/g).map((c) => color(`#${c}`));
   return colorArray;
 }
 
-let colors = [];
+// **************************
+// *    GLOBAL VARIABLES    *
+// **************************
+
+let hue;
 
 // **************************
 // * HIC ET NUNC USER DATA  *
@@ -64,12 +67,6 @@ let creatorData = creator;
 let viewerWasFound = viewerData && !viewerData.includes("false");
 
 // **************************
-// *    GLOBAL VARIABLES    *
-// **************************
-
-let hue;
-
-// **************************
 // *       PARAMETERS       *
 // **************************
 
@@ -93,21 +90,10 @@ function preload() {}
 // **************************
 
 function setup() {
-
-
-  if (viewerWasFound) {
-    viewerSeed = getHash(viewerData);
-    console.log(`Seed: ${viewerSeed}`);
-  } else if (useRandomSeed) {
-    viewerSeed = Math.floor(Math.random() * 999999999);
-    console.log(`No viewer found; using random seed: ${viewerSeed}`);
-  }
+  // set the random and noise seeds based on viewer data
+  initSeeds();
 
   colors = getRandomColorsFrom(paletteArray);
-
-  // Use the same random and noise values every time for a given (synced) viewer
-  noiseSeed(viewerSeed);
-  randomSeed(viewerSeed);
 
   createCanvas(windowWidth, windowHeight);
 
@@ -123,10 +109,11 @@ function setup() {
 // **************************
 
 function draw() {
-
   let x = random(width);
   let y = random(height);
 
+  fill(random(colors));
+  circle(x, y, random(10, 100));
 
   // Display the hicetnunc data & our user-dependent variable(s)
   let txtSize = 16;
@@ -170,4 +157,17 @@ function getHash(string) {
   } else {
     return null;
   }
+}
+
+function initSeeds() {
+  if (viewerWasFound) {
+    viewerSeed = getHash(viewerData);
+    console.log(`Seed: ${viewerSeed}`);
+  } else if (useRandomSeed) {
+    viewerSeed = Math.floor(Math.random() * 999999999);
+    console.log(`No viewer found; using random seed: ${viewerSeed}`);
+  }
+  // Use the same random and noise values every time for a given (synced) viewer
+  noiseSeed(viewerSeed);
+  randomSeed(viewerSeed);
 }
