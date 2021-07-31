@@ -81,7 +81,7 @@ function setup() {
 
   // Use the same random and noise values every time for a given (synced) viewer
   noiseSeed(viewerSeed);
-  randomSeed(viewerSeed);
+  randomSeed(viewerSeed); // NOTE: Math.random() is not affected by randomSeed()
 
   createCanvas(windowWidth, windowHeight);
 
