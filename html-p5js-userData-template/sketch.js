@@ -26,22 +26,33 @@ const viewer = new URLSearchParams(window.location.search).get("viewer");
 console.log("NFT created by", creator); // null if local
 console.log("NFT viewed by", viewer); // null if local
 
+const DEFAULTSEED = 123456789;
+let viewerSeed = DEFAULTSEED;
+
 const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewer (user a different address to try another viewer)
 const UNSYNCED = "false"; // simulate an unsynced user
 
 // Default is viewer. Try with DUMMY or UNSYNCED only for debugging
 let viewerData = viewer;
 
-// Check if we have a user
+// Default is creator. Try with DUMMY only for debugging
+let creatorData = creator;
+
+// Check if we have a viewer
 let viewerWasFound = viewerData && !viewerData.includes("false");
+
+// **************************
+// *    GLOBAL VARIABLES    *
+// **************************
+
+let hue;
 
 // **************************
 // *       PARAMETERS       *
 // **************************
 
-// Use a random seed by default
-let defaultSeed = Math.floor(Math.random() * 999999999);
-//let defaultSeed = 123456789;
+// In case no viewer data is found, should we use a random seed instead of DEFAULTSEED?
+let useRandomSeed = true;
 
 // Set this to true when minting
 p5.disableFriendlyErrors = false;
@@ -60,13 +71,12 @@ function preload() {}
 // **************************
 
 function setup() {
-  let viewerSeed;
   if (viewerWasFound) {
     viewerSeed = getHash(viewerData);
     console.log(`Seed: ${viewerSeed}`);
-  } else {
-    viewerSeed = defaultSeed;
-    console.log(`No viewer found; using default seed: ${viewerSeed}`);
+  } else if (useRandomSeed) {
+    viewerSeed = Math.floor(Math.random() * 999999999);
+    console.log(`No viewer found; using random seed: ${viewerSeed}`);
   }
 
   // Use the same random and noise values every time for a given (synced) viewer
@@ -77,13 +87,9 @@ function setup() {
 
   noStroke();
 
-  colorMode(HSB);
-
   background(0);
 
-  let hue = random(360);
-
-  fill(hue, 70, 80);
+  hue = random(360);
 }
 
 // **************************
@@ -91,25 +97,50 @@ function setup() {
 // **************************
 
 function draw() {
-  translate(width / 2, height / 2);
+  let scale = min(width, height);
 
   let angle = (frameCount * 0.12) / TWO_PI;
 
-  let scale = min(width, height);
-
+  // Calculate the size of the brush
   noiseDetail(4, 0.5);
   let noiseX = cos(angle) + 1;
   let noiseY = sin(angle) + 1;
   let n = noise(noiseX, noiseY);
   let s = scale * 0.1 * n;
 
+  // Calculate the position of the brush
   noiseDetail(2, 0.1);
   n = noise(noiseX, noiseY);
   let r = 0.33 * scale - n * 200;
   let x = cos(angle) * r;
   let y = sin(angle) * r;
 
+  // Draw the brush
+  push();
+  noStroke();
+  translate(width / 2, height / 2);
+  colorMode(HSB);
+  fill(hue, 70, 80);
   circle(x, y, s);
+  pop();
+
+  // Display the hicetnunc data & our user-dependent variable(s)
+  let txtSize = 16;
+  push();
+  stroke(0);
+  fill(255);
+  textSize(txtSize);
+  text(`NFT created by: ${creator}`, txtSize, txtSize * 2);
+  text(`NFT viewed by: ${viewerData}`, txtSize, txtSize * 3);
+  let suffix = "";
+  if (!viewerWasFound) {
+    suffix = "(default)";
+    if (useRandomSeed) {
+      suffix = "(random)";
+    }
+  }
+  text(`Seed: ${viewerSeed} ${suffix}`, txtSize, txtSize * 4);
+  pop();
 }
 
 // **************************
