@@ -9,28 +9,28 @@
 // https://github.com/hicetnunc2000/hicetnunc/tree/main/templates
 
 // **************************
-// *        COLOR           *
+// *        COLORS          *
 // **************************
 
 const paletteArray = [
-  "011627-fdfffc-2ec4b6-e71d36-ff9f1c",
-  "f94144-f3722c-f9844a-f8961e-f9c74f-90be6d-43aa8b-4d908e-577590-277da1",
-  "e63946-f1faee-a8dadc-457b9d-1d3557",
-  "56e39f-e9ce2c-b9314f-3abeff",
-  "515a6b-d6f634-fd7643-fc3b55-1787f0-fd4768-24de5f",
+  "https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c",
+  "https://coolors.co/f94144-f3722c-f9844a-f8961e-f9c74f-90be6d-43aa8b-4d908e-577590-277da1",
+  "https://coolors.co/e63946-f1faee-a8dadc-457b9d-1d3557",
+  "https://coolors.co/56e39f-e9ce2c-b9314f-3abeff",
+  "https://coolors.co/515a6b-d6f634-fd7643-fc3b55-1787f0-fd4768-24de5f",
 ];
-let colorPalette = [];
 
-function loadPalette() {
-  let newIndex = ~~random(paletteArray.length);
-  while (newIndex === paletteIndex) {
-    newIndex = ~~random(paletteArray.length);
-  }
-  paletteIndex = newIndex;
-  let colorString = paletteArray[paletteIndex];
-  colorPalette = colorString.match(/[0-9a-f]{6}/g).map((c) => `#${c}`);
-  console.log("Color palette: " + colorPalette);
+function getRandomColorsFrom(palArray) {
+  let paletteString = palArray[Math.floor(Math.random() * palArray.length)];
+  console.log("🎨 color palette: " + paletteString);
+  let colorArray = paletteString
+    .match(/[0-9a-f]{6}/g)
+    .map((c) => `#${c}`)
+    .map((s) => color(s));
+  return colorArray;
 }
+
+let colors = [];
 
 // **************************
 // * HIC ET NUNC USER DATA  *
@@ -48,22 +48,33 @@ const viewer = new URLSearchParams(window.location.search).get("viewer");
 console.log("NFT created by", creator); // null if local
 console.log("NFT viewed by", viewer); // null if local
 
+const DEFAULTSEED = 123456789;
+let viewerSeed = DEFAULTSEED;
+
 const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewer (user a different address to try another viewer)
 const UNSYNCED = "false"; // simulate an unsynced user
 
 // Default is viewer. Try with DUMMY or UNSYNCED only for debugging
 let viewerData = viewer;
 
-// Check if we have a user
+// Default is creator. Try with DUMMY only for debugging
+let creatorData = creator;
+
+// Check if we have a viewer
 let viewerWasFound = viewerData && !viewerData.includes("false");
+
+// **************************
+// *    GLOBAL VARIABLES    *
+// **************************
+
+let hue;
 
 // **************************
 // *       PARAMETERS       *
 // **************************
 
-// Use a random seed by default
-let defaultSeed = Math.floor(Math.random() * 999999999);
-//let defaultSeed = 123456789;
+// In case no viewer data is found, should we use a random seed instead of DEFAULTSEED?
+let useRandomSeed = true;
 
 // Set this to true when minting
 p5.disableFriendlyErrors = false;
@@ -82,14 +93,17 @@ function preload() {}
 // **************************
 
 function setup() {
-  let viewerSeed;
+
+
   if (viewerWasFound) {
     viewerSeed = getHash(viewerData);
     console.log(`Seed: ${viewerSeed}`);
-  } else {
-    viewerSeed = defaultSeed;
-    console.log(`No viewer found; using default seed: ${viewerSeed}`);
+  } else if (useRandomSeed) {
+    viewerSeed = Math.floor(Math.random() * 999999999);
+    console.log(`No viewer found; using random seed: ${viewerSeed}`);
   }
+
+  colors = getRandomColorsFrom(paletteArray);
 
   // Use the same random and noise values every time for a given (synced) viewer
   noiseSeed(viewerSeed);
@@ -99,13 +113,9 @@ function setup() {
 
   noStroke();
 
-  colorMode(HSB);
-
   background(0);
 
-  let hue = random(360);
-
-  fill(hue, 70, 80);
+  hue = random(360);
 }
 
 // **************************
@@ -113,25 +123,28 @@ function setup() {
 // **************************
 
 function draw() {
-  translate(width / 2, height / 2);
 
-  let angle = (frameCount * 0.12) / TWO_PI;
+  let x = random(width);
+  let y = random(height);
 
-  let scale = min(width, height);
 
-  noiseDetail(4, 0.5);
-  let noiseX = cos(angle) + 1;
-  let noiseY = sin(angle) + 1;
-  let n = noise(noiseX, noiseY);
-  let s = scale * 0.1 * n;
-
-  noiseDetail(2, 0.1);
-  n = noise(noiseX, noiseY);
-  let r = 0.33 * scale - n * 200;
-  let x = cos(angle) * r;
-  let y = sin(angle) * r;
-
-  circle(x, y, s);
+  // Display the hicetnunc data & our user-dependent variable(s)
+  let txtSize = 16;
+  push();
+  stroke(0);
+  fill(255);
+  textSize(txtSize);
+  text(`NFT created by: ${creator}`, txtSize, txtSize * 2);
+  text(`NFT viewed by: ${viewerData}`, txtSize, txtSize * 3);
+  let suffix = "";
+  if (!viewerWasFound) {
+    suffix = "(default)";
+    if (useRandomSeed) {
+      suffix = "(random)";
+    }
+  }
+  text(`Seed: ${viewerSeed} ${suffix}`, txtSize, txtSize * 4);
+  pop();
 }
 
 // **************************
