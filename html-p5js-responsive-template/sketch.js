@@ -109,6 +109,7 @@ function keyPressed() {
 
 function setDimensions() {
   // This is how we constrain the canvas to the smallest dimension of the window
+  // Thanks to Maxim Schoemaker for this trick! twitter.com/MaximSchoemaker - maximschoemaker.com
   canvasSize = min(windowWidth, windowHeight);
 
   if (hasMaxSize) {
