@@ -12,21 +12,26 @@
 // *        WIKIDATA        *
 // **************************
 
-// https://editor.p5js.org/piecesofuk/sketches/HyTw4AeyG
-var endpointUrl = "https://query.wikidata.org/sparql?",
-  sparqlQuery =
-    "#Cats\n" +
-    "SELECT ?item ?itemLabel \n" +
-    "WHERE \n" +
-    "{\n" +
-    "  ?item wdt:P31 wd:Q146.\n" +
-    '  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }\n' +
-    "}";
+// https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/queries/examples
+
+//https://editor.p5js.org/piecesofuk/sketches/HyTw4AeyG
+var endpointUrl =
+  "https://query.wikidata.org/sparql?format=json&query=" +
+  "#Cats\n" +
+  "SELECT ?item ?itemLabel \n" +
+  "WHERE \n" +
+  "{\n" +
+  "  ?item wdt:P31 wd:Q146.\n" +
+  '  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }\n' +
+  "}";
 
 // https://editor.p5js.org/piecesofuk/sketches/SJpC47Dgf
-let catsJSON;
+let json;
 let wikidataURL =
   "https://query.wikidata.org/sparql?format=json&query=%23Cats%0ASELECT%20%3Fitem%20%3FitemLabel%20%0AWHERE%20%0A%7B%0A%20%20%3Fitem%20wdt%3AP31%20wd%3AQ146.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%20LIMIT%202";
+
+// https://www.wikidata.org/wiki/Wikidata:Data_access
+let testURL = "https://www.wikidata.org/wiki/Special:EntityData/Q42.json";
 
 // **************************
 // *       PARAMETERS       *
@@ -47,7 +52,7 @@ document.title = "My beautiful p5.js sketch";
 // **************************
 
 function preload() {
-  catsJSON = loadJSON(wikidataURL);
+  json = loadJSON(wikidataURL);
 }
 
 // **************************
@@ -57,7 +62,9 @@ function preload() {
 function setup() {
   noCanvas();
 
-  let bindings = catsJSON.results.bindings;
+  console.log(json);
+
+  let bindings = json.results.bindings;
 
   for (let i = 0; i < bindings.length; i++) {
     console.log(bindings[i]["itemLabel"]["value"]);
