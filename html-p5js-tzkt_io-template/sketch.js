@@ -12,39 +12,20 @@
 // *        TZKT.IO         *
 // **************************
 
-let walletAddr = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K";
+let walletAddr = "tz1gqaKjfQBhUMCE6LhbkpuittRiWv5Z6w38"; // jjjjjjjjjjohn
+let marketplaceAddr = "KT1HbQepzV1nVGg8QVznG7z4RcHseD5kwqBn"; // hicetnunc marketplace contract
+let metadataAddr = "KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton";
+let operationsAmount = 10;
 
-//https://api.tzkt.io/
-
-//https://api.tzkt.io/#section/C-simple-client
-let tzktURL = "https://api.tzkt.io/v1/events";
-
-const connection = new signalR.HubConnectionBuilder().withUrl(tzktURL).build();
-
-async function init() {
-  // open connection
-  await connection.start();
-  // subscribe to head
-  await connection.invoke("SubscribeToHead");
-  // subscribe to account transactions
-  await connection.invoke("SubscribeToOperations", {
-    address: walletAddr,
-    types: "transaction",
-  });
-}
-
-// auto-reconnect
-connection.onclose(init);
-
-connection.on("head", (msg) => {
-  console.log(msg);
-});
-
-connection.on("operations", (msg) => {
-  console.log(msg);
-});
-
-init();
+// Get the latest operations for the account from https://api.tzkt.io/
+let operations = [];
+fetch(
+  `https://api.tzkt.io/v1/accounts/${walletAddr}/operations?` +
+    `sender = ${marketplaceAddr}` +
+    `&limit=${operationsAmount}`
+)
+  .then((response) => response.json())
+  .then((data) => console.log(data));
 
 // **************************
 // *       PARAMETERS       *
