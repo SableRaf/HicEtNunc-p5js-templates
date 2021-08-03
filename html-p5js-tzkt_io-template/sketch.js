@@ -12,6 +12,11 @@
 // *        TZKT.IO         *
 // **************************
 
+let walletAddr = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K";
+
+//https://api.tzkt.io/
+
+//https://api.tzkt.io/#section/C-simple-client
 let tzktURL = "https://api.tzkt.io/v1/events";
 
 const connection = new signalR.HubConnectionBuilder().withUrl(tzktURL).build();
@@ -23,7 +28,7 @@ async function init() {
   await connection.invoke("SubscribeToHead");
   // subscribe to account transactions
   await connection.invoke("SubscribeToOperations", {
-    address: "KT19kgnqC5VWoxktLRdRUERbyUPku9YioE8W",
+    address: walletAddr,
     types: "transaction",
   });
 }
@@ -66,7 +71,7 @@ function preload() {}
 // **************************
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  noCanvas();
 }
 
 // **************************
@@ -74,13 +79,13 @@ function setup() {
 // **************************
 
 function draw() {
-  background(0);
-  translate(width / 2, height / 2);
-  circle(0, 0, sin(frameCount * 0.01) * min(width, height));
+  //background(0);
+  //translate(width / 2, height / 2);
+  //circle(0, 0, sin(frameCount * 0.01) * min(width, height));
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  //resizeCanvas(windowWidth, windowHeight);
 }
 
 // **************************
