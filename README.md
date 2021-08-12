@@ -1,6 +1,6 @@
 # HicEtNunc-p5js-templates
 
-p5.js templates build for minting interactive NFTs on Hic et Nunc 
+Helpful p5.js templates built for minting interactive NFTs on Hic et Nunc 
 
 Made for Processing's 20th anniversary Fundraiser by Raphaël de Courville (@sableraph)
 
