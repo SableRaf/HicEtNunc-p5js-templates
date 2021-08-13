@@ -13,4 +13,4 @@ The hicetnunc specific code is adapted from the original [html-p5js-template](ht
 
 Additional thanks to Andre Venancio, @pichiste (Daniel Massey), and @Makio135 (Lionel Radisson) for making interactive NFTs possible and everyone who kept experimenting and expanding what can be done on Hic et Nunc.
 
-Made in August 2021 for Processing's 20th anniversary Fundraiser by [Raphaël de Courville](https://twitter.com/sableraph).
+Made in August 2021 for Processing's 20th anniversary Fundraiser by [@sableraph](https://twitter.com/sableraph) (Raphaël de Courville).
