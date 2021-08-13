@@ -34,6 +34,8 @@ const UNSYNCED = "false"; // simulate an unsynced user
 
 // Default is viewer. Try with DUMMY or UNSYNCED only for debugging
 let viewerData = viewer;
+// let viewerData = UNSYNCED;
+// let viewerData = DUMMY;
 
 // Default is creator. Try with DUMMY only for debugging
 let creatorData = creator;
