@@ -76,5 +76,9 @@ const viewer = new URLSearchParams(window.location.search).get("viewer");
 // NOTE: if the user is viewing the page on hicetnunc while unsynced,
 // the viewer variable will return a string of value "false" (NOT a boolean)
 
+// The ID of the OBJKT is also passed via the URL parameters
+const objkt = new URLSearchParams(window.location.search).get("objkt");
+
 console.log("NFT created by", creator); // null if local
 console.log("NFT viewed by", viewer); // null if local
+console.log("OBJKT ID", objkt); // null if local
