@@ -50,6 +50,8 @@ const viewer = new URLSearchParams(window.location.search).get("viewer");
 
 // The ID of the OBJKT is also passed via the URL parameters
 const objkt = new URLSearchParams(window.location.search).get("objkt");
+// NOTE: when the object is viewed in the preview page
+// the objkt variable will return a string of value "false" (NOT a boolean)
 
 console.log("NFT created by", creator); // null if local
 console.log("NFT viewed by", viewer); // null if local
@@ -61,6 +63,9 @@ let viewerSeed = DEFAULTSEED;
 const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewer (user a different address to try another viewer)
 const UNSYNCED = "false"; // simulate an unsynced user
 
+const PREVIEW_OBJKT = "false"; // simulate the preview page
+const DUMMY_OBJKT = 67954; // simulate an OBJKT ID
+
 // Default is viewer. Try with DUMMY or UNSYNCED only for debugging
 let viewerData = viewer;
 // let viewerData = UNSYNCED;
@@ -69,6 +74,11 @@ let viewerData = viewer;
 // Default is creator. Try with DUMMY only for debugging
 let creatorData = creator;
 //let creatorData = DUMMY;
+
+// Default is objkt. Try with DUMMY_OBJKT or PREVIEW_OBJKT only for debugging
+let objktData = objkt;
+//let objktData = DUMMY_OBJKT;
+// let objktData = PREVIEW_OBJKT;
 
 // Check if we have a viewer
 let viewerWasFound = viewerData && !viewerData.includes("false");
@@ -138,6 +148,7 @@ function draw() {
     }
   }
   text(`Seed: ${viewerSeed} ${suffix}`, txtSize, txtSize * 4);
+  text(`OBJKT ID: ${objktData}`, txtSize, txtSize * 5);
   pop();
 }
 
