@@ -53,7 +53,7 @@ function setup() {
   if (isCentered) {
     centerCanvas();
   }
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(canvasSize, canvasSize);
 }
 
 // **************************
