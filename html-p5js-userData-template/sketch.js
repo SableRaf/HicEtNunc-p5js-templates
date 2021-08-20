@@ -146,14 +146,16 @@ function draw() {
     }
   }
   text(`Seed: ${viewerSeed} ${suffix}`, txtSize, txtSize * 4);
+  text(`OBJKT ID: ${objkt}`, txtSize, txtSize * 5);
   pop();
 
   // Create a screen reader accessible description for the canvas
   describe(
-    `A roughly circular colorful ribbon in the center of a black canvas. Text in the top left reads` +
+    `A roughly circular colorful ribbon in the center of a black canvas. Text in the top left reads:` +
       `\n NFT created by: ${creator}` +
       `\n NFT viewed by: ${viewerData}` +
-      `\n Seed: ${viewerSeed} ${suffix}`
+      `\n Seed: ${viewerSeed} ${suffix}` +
+      `\n OBJKT ID: ${objkt}`
   );
 }
 
