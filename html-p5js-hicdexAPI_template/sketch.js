@@ -21,14 +21,16 @@
 
 const paletteArray = [
   "https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c",
-  "https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529",
+  "https://coolors.co/000000-202020-404040-606060-808080-a0a0a0-c0c0c0-e0e0e0-ffffff",
 ];
 
 let colors = [];
 
 function getColorsFrom(palArray, index) {
   if (index > palArray.length) {
-    console.error(`You are trying to get color palette at index ${index} but the color palette array is only of length ${colorArray.length}`);
+    console.error(
+      `You are trying to get color palette at index ${index} but the color palette array is only of length ${colorArray.length}`
+    );
     return;
   }
   let paletteUrl = palArray[index];
@@ -66,7 +68,7 @@ const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewe
 const UNSYNCED = "false"; // simulate an unsynced user
 
 const PREVIEW_OBJKT = "false"; // simulate the preview page
-const DUMMY_OBJKT = 67954; // simulate an OBJKT ID
+const DUMMY_OBJKT = 167954; // simulate an OBJKT ID
 
 // Default is viewer. Try with DUMMY or UNSYNCED only for debugging
 //let viewerData = viewer;
@@ -178,6 +180,7 @@ function ownerSketch() {
   translate(width / 2, height / 2);
   for (let i = 0; i < 20; i++) {
     let c = colors[i % colors.length];
+    if (frameCount > 5 && frameCount < 10) console.log(c);
     blendMode(DIFFERENCE);
     noStroke();
     fill(c);
@@ -190,6 +193,17 @@ function ownerSketch() {
 // We do that if the viewer does NOT own the OBJKT
 function nonOwnerSketch() {
   text(`You do not own this NFT`, txtSize, txtSize * 2);
+  push();
+  noFill();
+  translate(width / 2, height / 2);
+  for (let i = 0; i < 20; i++) {
+    let c = colors[i % colors.length];
+    if (frameCount > 5 && frameCount < 10) console.log(c);
+    stroke(c);
+    let diameter = i * 30;
+    circle(0, 0, diameter);
+  }
+  pop();
 }
 
 function getColors(isColor) {
