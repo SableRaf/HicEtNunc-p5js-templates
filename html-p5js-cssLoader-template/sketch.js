@@ -5,10 +5,11 @@
 // By Raphaël de Courville (@sableraph)
 // Find the latest version at https://github.com/SableRaf/HicEtNunc-p5js-templates
 
-
 // CSS loader code adapted from the ThreeJS loader by Michael Herzog (Mugen87)
 // post: https://stackoverflow.com/questions/49643660/threejs-loading-screen
 // demo: https://jsfiddle.net/vfug1adn/19/
+
+// 🤓 Note: replace thumbnail.png with your own thumbnail
 
 // **************************
 // *       PARAMETERS       *

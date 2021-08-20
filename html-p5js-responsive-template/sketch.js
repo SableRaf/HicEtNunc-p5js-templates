@@ -13,6 +13,8 @@
 // By Raphaël de Courville (@sableraph)
 // Find the latest version at https://github.com/SableRaf/HicEtNunc-p5js-templates
 
+// 🤓 Note: replace thumbnail.png with your own thumbnail
+
 // **************************
 // *       PARAMETERS       *
 // **************************
