@@ -1,5 +1,9 @@
 // HICDEX API TEMPLATE
 
+// 🚨 this template uses an external API (Hicdex)
+// If Hicdex changes its API or stops functioning
+// already minted OBJKTs may be permanently broken
+
 // p5.js template for minting on Hic et Nunc
 // Made for Processing's 20th anniversary Fundraiser
 // By Raphaël de Courville (@sableraph)
@@ -11,8 +15,6 @@
 
 // 🤓 Note: replace thumbnail.png with your own thumbnail
 
-// 🛸 Note 2: this template uses an external API
-// it could break in the future with no chance to fix it
 
 // **************************
 // *    HIC ET NUNC DATA    *
