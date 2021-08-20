@@ -15,6 +15,27 @@
 
 // 🤓 Note: replace thumbnail.png with your own thumbnail
 
+// **************************
+// *        COLORS          *
+// **************************
+
+const paletteArray = [
+  "https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c",
+  "https://coolors.co/f94144-f3722c-f9844a-f8961e-f9c74f-90be6d-43aa8b-4d908e-577590-277da1",
+];
+
+let colors = [];
+
+function getColorsFrom(palArray, index) {
+  if (index > palArray.length) {
+    console.error(`You are trying to get color palette at index ${index} but the color palette array is only of length ${colorArray.length}`);
+    return;
+  }
+  let paletteUrl = palArray[index];
+  console.log("🎨 color palette: " + paletteUrl);
+  let colorArray = paletteUrl.match(/[0-9a-f]{6}/g).map((c) => color(`#${c}`));
+  return colorArray;
+}
 
 // **************************
 // *    HIC ET NUNC DATA    *
@@ -36,7 +57,7 @@ const objkt = new URLSearchParams(window.location.search).get("objkt");
 
 console.log("NFT created by", creator); // null if local
 console.log("NFT viewed by", viewer); // null if local
-console.log("OBJKT ID", objkt); // null if local
+console.log("OBJKT ID is", objkt); // null if local
 
 const DEFAULTSEED = 123456789;
 let viewerSeed = DEFAULTSEED;
@@ -57,9 +78,9 @@ let creatorData = creator;
 //let creatorData = DUMMY;
 
 // Default is objkt. Try with DUMMY_OBJKT or PREVIEW_OBJKT only for debugging
-//let objktID = objkt;
+//let objktID = objkt; // will cause errors when ran locally (objkt is null)
 let objktID = DUMMY_OBJKT;
-// let objktID = PREVIEW_OBJKT;
+//let objktID = PREVIEW_OBJKT;
 
 // Check if we have a viewer
 let viewerWasFound = viewerData && !viewerData.includes("false");
@@ -77,6 +98,8 @@ document.title = "My beautiful p5.js sketch";
 // Describe what your piece looks like to screen reader users
 let description = "";
 
+let txtSize = 32;
+
 // **************************
 // *    GLOBAL VARIABLES    *
 // **************************
@@ -86,6 +109,8 @@ let objktMetadata = {};
 let owners = [];
 
 let viewerIsOwner = "false"; // we will set this based on the hicdex query
+
+let isPreview = (objktID === "false");
 
 // **************************
 // *        PRELOAD         *
@@ -99,49 +124,64 @@ function preload() {}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
   describe(description); // Create a screen reader accessible description for the canvas
-}
 
-// **************************
-// *          DRAW          *
-// **************************
-
-function checkViewerIsOwner(data) {
-  if (data.token_holders.some((e) => e.holder.address === viewerData)) {
-    console.log("found owner");
-    viewerIsOwner = true;
-  }
-  console.log({ OBJKT: data });
-}
-
-function draw() {
-  background(255);
-
-  if (frameCount === 1) {
-    fetchData(objktID).then((data) => checkViewerIsOwner(data));
-  }
-
-  let txtSize = 32;
   push();
   stroke(0);
   strokeWeight(8);
   strokeJoin(ROUND);
   fill(255);
   textSize(txtSize);
-  if (viewerIsOwner === true) {
-    text(
-      `😎` + `\nYou own this NFT ` + `\n(OBJKT #${objktID})`,
-      txtSize,
-      txtSize * 2
-    );
-  } else {
-    text(
-      `🙁` + `\nYou do not own this NFT` + `\n(OBJKT #${objktID})`,
-      txtSize,
-      txtSize * 2
-    );
+
+  if (isPreview) {
+    console.log("Preview mode")
   }
-  pop();
+}
+
+// **************************
+// *          DRAW          *
+// **************************
+
+function draw() {
+  background(255);
+
+  text(`OBJKT #${objktID}`, txtSize, txtSize);
+
+  if(frameCount === 1)
+  {
+    if (!isPreview) {
+      fetchData(objktID)
+        .then((data) => checkViewerIsOwner(data))
+        .then(()=>{colors = getColors(viewerIsOwner)});
+    } else {
+      console.warn("This sketch doesn't have an OBJKT ID yet. Unable to fetch data");
+    }
+  }
+
+  if (viewerIsOwner === true) {
+    ownerSketch();
+  } else {
+    nonOwnerSketch();
+  }
+}
+
+// We do this if the viewer owns the OBJKT
+function ownerSketch() {
+  text(`You own this NFT`, txtSize, txtSize * 2);
+}
+
+// We do that if the viewer does NOT own the OBJKT
+function nonOwnerSketch() {
+  text(`You do not own this NFT`, txtSize, txtSize * 2);
+}
+
+function getColors(isColor) {
+    if (isColor) {
+      return getColorsFrom(paletteArray, 0);
+    } else {
+      return getColorsFrom(paletteArray, 1);
+    }
 }
 
 function windowResized() {
@@ -149,21 +189,18 @@ function windowResized() {
 }
 
 // **************************
-// *         INPUT          *
+// *      HICDEX API        *
 // **************************
 
-// Find key codes at http://keycode.info/
-function keyPressed() {
-  if (keyCode === 82) {
-    console.log("R was pressed");
-  } else if (keyCode === 67) {
-    console.log("C was pressed");
+function checkViewerIsOwner(data) {
+  if (data.token_holders.some((e) => e.holder.address === viewerData)) {
+    console.log(`The viewer owns this OBJKT`);
+    viewerIsOwner = true;
+  } else {
+    console.log(`The viewer does NOT own this OBJKT`);
   }
+  console.log({ OBJKT: data });
 }
-
-// **************************
-// *    HICDEX API QUERY    *
-// **************************
 
 // http://hicdex.com/objkt?objkt=149371
 
