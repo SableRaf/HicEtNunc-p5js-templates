@@ -65,7 +65,7 @@ let viewerWasFound = viewerData && !viewerData.includes("false");
 // *    GLOBAL VARIABLES    *
 // **************************
 
-let hue;
+let colorHue;
 
 // **************************
 // *       PARAMETERS       *
@@ -109,7 +109,7 @@ function setup() {
 
   background(0);
 
-  hue = random(360);
+  colorHue = random(360);
 }
 
 // **************************
@@ -140,7 +140,7 @@ function draw() {
   noStroke();
   translate(width / 2, height / 2);
   colorMode(HSB);
-  fill(hue, 70, 80);
+  fill(colorHue, 70, 80);
   circle(x, y, s);
   pop();
 
