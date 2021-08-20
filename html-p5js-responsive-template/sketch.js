@@ -79,6 +79,13 @@ function draw() {
   fill("black");
   text("Canvas size = " + canvasSize, 0, -fontSize);
   text("Window scale = " + windowScale.toFixed(2), 0, fontSize);
+
+  // Create a screen reader accessible description for the canvas
+  describe(
+    `A black circle on a white background with the following text:` +
+      `\nCanvas size = ${canvasSize}` +
+      `\nWindow scale = ${windowScale.toFixed(2)}`
+  );
 }
 
 // **************************

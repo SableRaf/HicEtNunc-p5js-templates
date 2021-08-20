@@ -96,6 +96,10 @@ p5.disableFriendlyErrors = false;
 // The title of your piece goes here (not visible on hicetnunc)
 document.title = "My beautiful p5.js sketch";
 
+// Describe what your piece looks like to screen reader users
+let description = "Colorful dots keep appearing and fill the canvas";
+
+
 // **************************
 // *        PRELOAD         *
 // **************************
@@ -119,6 +123,8 @@ function setup() {
   background(0);
 
   hue = random(360);
+
+  describe(description); // Create a screen reader accessible description for the canvas
 }
 
 // **************************

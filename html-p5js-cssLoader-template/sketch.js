@@ -18,6 +18,9 @@ p5.disableFriendlyErrors = false;
 // The title of your piece goes here (not visible on hicetnunc)
 document.title = "My beautiful p5.js sketch";
 
+// Describe what your piece looks like to screen reader users
+let description = "A photograph of Mimas, a moon of Saturn";
+
 // **************************
 // *    GLOBAL VARIABLES    *
 // **************************
@@ -52,6 +55,8 @@ function setup() {
   });
 
   createCanvas(windowWidth, windowHeight);
+
+  describe(description); // Create a screen reader accessible description for the canvas
 }
 
 // **************************
