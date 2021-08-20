@@ -21,7 +21,7 @@
 
 const paletteArray = [
   "https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c",
-  "https://coolors.co/f94144-f3722c-f9844a-f8961e-f9c74f-90be6d-43aa8b-4d908e-577590-277da1",
+  "https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529",
 ];
 
 let colors = [];
