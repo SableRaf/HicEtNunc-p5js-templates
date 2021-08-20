@@ -3,6 +3,7 @@
 // p5.js template for minting on Hic et Nunc
 // Made for Processing's 20th anniversary Fundraiser
 // By Raphaël de Courville (@sableraph)
+// Find the latest version at https://github.com/SableRaf/HicEtNunc-p5js-templates
 
 // hicetnunc code is adapted from https://github.com/hicetnunc2000/hicetnunc/tree/main/templates/html-p5js-template
 // More hicetnunc html templates (three.js, glsl, etc) can be found at
@@ -18,7 +19,7 @@ p5.disableFriendlyErrors = false;
 // The title of your piece goes here (not visible on hicetnunc)
 document.title = "My beautiful p5.js sketch";
 
-// Describe what your piece looks like for screen reader users
+// Describe what your piece looks like to screen reader users
 let description = "A white disc in the center of a black canvas is growing and shrinking slowly.";
 
 // **************************
