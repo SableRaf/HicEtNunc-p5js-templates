@@ -108,9 +108,9 @@ let objktMetadata = {};
 
 let owners = [];
 
-let viewerIsOwner = "false"; // we will set this based on the hicdex query
+let viewerIsOwner = false; // we will set this based on the hicdex query
 
-let isPreview = (objktID === "false");
+let isPreview = objktID === "false";
 
 // **************************
 // *        PRELOAD         *
@@ -135,7 +135,7 @@ function setup() {
   textSize(txtSize);
 
   if (isPreview) {
-    console.log("Preview mode")
+    console.log("Preview mode");
   }
 }
 
@@ -148,14 +148,17 @@ function draw() {
 
   text(`OBJKT #${objktID}`, txtSize, txtSize);
 
-  if(frameCount === 1)
-  {
+  if (frameCount === 1) {
     if (!isPreview) {
       fetchData(objktID)
         .then((data) => checkViewerIsOwner(data))
-        .then(()=>{colors = getColors(viewerIsOwner)});
+        .then(() => {
+          colors = getColors(viewerIsOwner);
+        });
     } else {
-      console.warn("This sketch doesn't have an OBJKT ID yet. Unable to fetch data");
+      console.warn(
+        "This sketch doesn't have an OBJKT ID yet. Unable to fetch data"
+      );
     }
   }
 
@@ -169,6 +172,15 @@ function draw() {
 // We do this if the viewer owns the OBJKT
 function ownerSketch() {
   text(`You own this NFT`, txtSize, txtSize * 2);
+  translate(width / 2, height / 2);
+  for (let i = 0; i < 20; i++) {
+    let c = colors[i % colors.length];
+    blendMode(DIFFERENCE);
+    noStroke();
+    fill(c);
+    circle(0, 0, i * 30);
+    blendMode(BLEND);
+  }
 }
 
 // We do that if the viewer does NOT own the OBJKT
