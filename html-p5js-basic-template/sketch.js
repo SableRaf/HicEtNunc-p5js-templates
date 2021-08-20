@@ -18,6 +18,9 @@ p5.disableFriendlyErrors = false;
 // The title of your piece goes here (not visible on hicetnunc)
 document.title = "My beautiful p5.js sketch";
 
+// Describe what your piece looks like for screen reader users
+let description = "A white disc in the center of a black canvas is growing and shrinking slowly.";
+
 // **************************
 // *    GLOBAL VARIABLES    *
 // **************************
@@ -34,6 +37,7 @@ function preload() {}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  describe(description); // Create a screen reader accessible description for the canvas
 }
 
 // **************************
