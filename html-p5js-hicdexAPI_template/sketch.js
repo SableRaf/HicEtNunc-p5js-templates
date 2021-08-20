@@ -145,6 +145,8 @@ function setup() {
 
 function draw() {
   background(255);
+  fill(255);
+  stroke(0);
 
   text(`OBJKT #${objktID}`, txtSize, txtSize);
 
@@ -172,6 +174,7 @@ function draw() {
 // We do this if the viewer owns the OBJKT
 function ownerSketch() {
   text(`You own this NFT`, txtSize, txtSize * 2);
+  push();
   translate(width / 2, height / 2);
   for (let i = 0; i < 20; i++) {
     let c = colors[i % colors.length];
@@ -181,6 +184,7 @@ function ownerSketch() {
     circle(0, 0, i * 30);
     blendMode(BLEND);
   }
+  pop();
 }
 
 // We do that if the viewer does NOT own the OBJKT
