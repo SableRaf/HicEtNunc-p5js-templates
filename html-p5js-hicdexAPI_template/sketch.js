@@ -20,8 +20,8 @@
 // **************************
 
 const paletteArray = [
-  "https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c",
-  "https://coolors.co/000000-202020-404040-606060-808080-a0a0a0-c0c0c0-e0e0e0-ffffff",
+  "https://coolors.co/ffadad-ffd6a5-fdffb6-caffbf-9bf6ff-a0c4ff-bdb2ff-ffc6ff",
+  "https://coolors.co/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a40-212529",
 ];
 
 let colors = [];
@@ -167,28 +167,28 @@ function draw() {
   fill(255);
   stroke(0);
 
-  text(`OBJKT #${objktID}`, txtSize, txtSize);
+  text(`OBJKT #${objktID}`, txtSize, height - txtSize);
 
   if (dataFinishedLoading) {
     if (viewerIsOwner === true) {
-      display1();
+      showOwnerArt();
     } else {
-      display2();
+      showDefaultArt();
     }
   }
 }
 
 // We do this if the viewer owns the OBJKT
-function display1() {
+function showOwnerArt() {
   text(`You own this NFT`, txtSize, txtSize * 2);
   push();
   translate(width / 2, height / 2);
   for (let i = 0; i < 20; i++) {
-    let c = colors[i % colors.length];
+    let c = colors[(i + floor(frameCount * 0.1)) % colors.length];
     //if (frameCount > 5 && frameCount < 10) console.log(c);
-    blendMode(DIFFERENCE);
-    noStroke();
-    fill(c);
+    //blendMode(DIFFERENCE);
+    noFill();
+    stroke(c);
     circle(0, 0, i * 30);
     blendMode(BLEND);
   }
@@ -196,13 +196,13 @@ function display1() {
 }
 
 // We do that if the viewer does NOT own the OBJKT
-function display2() {
+function showDefaultArt() {
   text(`You do not own this NFT`, txtSize, txtSize * 2);
   push();
   noFill();
   translate(width / 2, height / 2);
   for (let i = 0; i < 20; i++) {
-    let c = colors[i % colors.length];
+    let c = colors[(i + floor(frameCount * 0.1)) % colors.length];
     //if (frameCount > 5 && frameCount < 10) console.log(c);
     stroke(c);
     let diameter = i * 30;
