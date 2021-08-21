@@ -68,7 +68,7 @@ const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewe
 const UNSYNCED = "false"; // simulate an unsynced user
 
 const PREVIEW_OBJKT = "false"; // simulate the preview page
-const DUMMY_OBJKT = 167954; // simulate an OBJKT ID
+const DUMMY_OBJKT = 67954; // simulate an OBJKT ID
 
 // Default is viewer. Try with DUMMY or UNSYNCED only for debugging
 //let viewerData = viewer;
@@ -114,11 +114,28 @@ let viewerIsOwner = false; // we will set this based on the hicdex query
 
 let isPreview = objktID === "false";
 
+let dataFinishedLoading = false;
+
 // **************************
 // *        PRELOAD         *
 // **************************
 
-function preload() {}
+function preload() {
+  if (!isPreview) {
+    fetchData(objktID)
+      .then((data) => checkViewerIsOwner(data))
+      .then(() => {
+        colors = getColors(viewerIsOwner);
+      })
+      .then(() => {
+        dataFinishedLoading = true;
+      });
+  } else {
+    console.warn(
+      "This sketch doesn't have an OBJKT ID yet (preview mode?). Unable to fetch data"
+    );
+  }
+}
 
 // **************************
 // *          SETUP         *
@@ -152,35 +169,23 @@ function draw() {
 
   text(`OBJKT #${objktID}`, txtSize, txtSize);
 
-  if (frameCount === 1) {
-    if (!isPreview) {
-      fetchData(objktID)
-        .then((data) => checkViewerIsOwner(data))
-        .then(() => {
-          colors = getColors(viewerIsOwner);
-        });
+  if (dataFinishedLoading) {
+    if (viewerIsOwner === true) {
+      display1();
     } else {
-      console.warn(
-        "This sketch doesn't have an OBJKT ID yet. Unable to fetch data"
-      );
+      display2();
     }
-  }
-
-  if (viewerIsOwner === true) {
-    ownerSketch();
-  } else {
-    nonOwnerSketch();
   }
 }
 
 // We do this if the viewer owns the OBJKT
-function ownerSketch() {
+function display1() {
   text(`You own this NFT`, txtSize, txtSize * 2);
   push();
   translate(width / 2, height / 2);
   for (let i = 0; i < 20; i++) {
     let c = colors[i % colors.length];
-    if (frameCount > 5 && frameCount < 10) console.log(c);
+    //if (frameCount > 5 && frameCount < 10) console.log(c);
     blendMode(DIFFERENCE);
     noStroke();
     fill(c);
@@ -191,14 +196,14 @@ function ownerSketch() {
 }
 
 // We do that if the viewer does NOT own the OBJKT
-function nonOwnerSketch() {
+function display2() {
   text(`You do not own this NFT`, txtSize, txtSize * 2);
   push();
   noFill();
   translate(width / 2, height / 2);
   for (let i = 0; i < 20; i++) {
     let c = colors[i % colors.length];
-    if (frameCount > 5 && frameCount < 10) console.log(c);
+    //if (frameCount > 5 && frameCount < 10) console.log(c);
     stroke(c);
     let diameter = i * 30;
     circle(0, 0, diameter);
