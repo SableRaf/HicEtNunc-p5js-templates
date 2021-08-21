@@ -167,8 +167,6 @@ function draw() {
   fill(255);
   stroke(0);
 
-  text(`OBJKT #${objktID}`, txtSize, height - txtSize);
-
   if (dataFinishedLoading) {
     if (viewerIsOwner === true) {
       showOwnerArt();
@@ -176,14 +174,15 @@ function draw() {
       showDefaultArt();
     }
   }
+
+  text(`OBJKT #${objktID}`, txtSize, height - txtSize);
 }
 
 // We do this if the viewer owns the OBJKT
 function showOwnerArt() {
-  text(`You own this NFT`, txtSize, txtSize * 2);
   push();
   translate(width / 2, height / 2);
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 100; i++) {
     let c = colors[(i + floor(frameCount * 0.1)) % colors.length];
     //if (frameCount > 5 && frameCount < 10) console.log(c);
     //blendMode(DIFFERENCE);
@@ -193,15 +192,15 @@ function showOwnerArt() {
     blendMode(BLEND);
   }
   pop();
+  text(`You own this NFT`, txtSize, txtSize * 2);
 }
 
 // We do that if the viewer does NOT own the OBJKT
 function showDefaultArt() {
-  text(`You do not own this NFT`, txtSize, txtSize * 2);
   push();
   noFill();
   translate(width / 2, height / 2);
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 100; i++) {
     let c = colors[(i + floor(frameCount * 0.1)) % colors.length];
     //if (frameCount > 5 && frameCount < 10) console.log(c);
     stroke(c);
@@ -209,14 +208,15 @@ function showDefaultArt() {
     circle(0, 0, diameter);
   }
   pop();
+  text(`You do not own this NFT`, txtSize, txtSize * 2);
 }
 
 function getColors(isColor) {
-    if (isColor) {
-      return getColorsFrom(paletteArray, 0);
-    } else {
-      return getColorsFrom(paletteArray, 1);
-    }
+  if (isColor) {
+    return getColorsFrom(paletteArray, 0);
+  } else {
+    return getColorsFrom(paletteArray, 1);
+  }
 }
 
 function windowResized() {
@@ -229,12 +229,12 @@ function windowResized() {
 
 function checkViewerIsOwner(data) {
   if (data.token_holders.some((e) => e.holder.address === viewerData)) {
-    console.log(`The viewer owns this OBJKT`);
+    console.log(`🦄 viewer IS owner`);
     viewerIsOwner = true;
   } else {
-    console.log(`The viewer does NOT own this OBJKT`);
+    console.log(`🦆 viewer is NOT owner`);
   }
-  console.log({ OBJKT: data });
+  //console.log({ OBJKT: data });
 }
 
 // http://hicdex.com/objkt?objkt=149371
