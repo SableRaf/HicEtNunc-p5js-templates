@@ -71,17 +71,17 @@ const PREVIEW_OBJKT = "false"; // simulate the preview page
 const DUMMY_OBJKT = 67954; // simulate an OBJKT ID
 
 // Default is viewer. Try with DUMMY or UNSYNCED only for debugging
-//let viewerData = viewer;
+let viewerData = viewer;
 //let viewerData = UNSYNCED;
-let viewerData = DUMMY;
+//let viewerData = DUMMY;
 
 // Default is creator. Try with DUMMY only for debugging
 let creatorData = creator;
 //let creatorData = DUMMY;
 
 // Default is objkt. Try with DUMMY_OBJKT or PREVIEW_OBJKT only for debugging
-//let objktID = objkt; // will cause errors when ran locally (objkt is null)
-let objktID = DUMMY_OBJKT;
+let objktID = objkt; // will cause errors when ran locally (objkt is null)
+//let objktID = DUMMY_OBJKT;
 //let objktID = PREVIEW_OBJKT;
 
 // Check if we have a viewer
