@@ -29,7 +29,7 @@ let colors = [];
 function getColorsFrom(palArray, index) {
   if (index > palArray.length) {
     console.error(
-      `You are trying to get color palette at index ${index} but the color palette array is only of length ${colorArray.length}`
+      `You are trying to get color palette at index ${index} but the color palette array is only of length ${palArray.length}`
     );
     return;
   }
