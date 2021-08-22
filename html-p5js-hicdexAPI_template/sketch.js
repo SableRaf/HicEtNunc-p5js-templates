@@ -67,7 +67,7 @@ let viewerSeed = DEFAULTSEED;
 const DUMMY = "tz1hfuVWgcJ89ZE75ut9Qroi3y7GFJL5Lf2K"; // simulate a synced viewer (user a different address to try another viewer)
 const UNSYNCED = "false"; // simulate an unsynced user
 
-const PREVIEW_OBJKT = "false"; // simulate the preview page
+const PREVIEW = "false"; // simulate the preview page
 const DUMMY_OBJKT = 67954; // simulate an OBJKT ID
 
 // Default is viewer. Try with DUMMY or UNSYNCED only for debugging
@@ -82,7 +82,7 @@ let creatorData = creator;
 // Default is objkt. Try with DUMMY_OBJKT or PREVIEW_OBJKT only for debugging
 let objktID = objkt; // will cause errors when ran locally (objkt is null)
 //let objktID = DUMMY_OBJKT;
-//let objktID = PREVIEW_OBJKT;
+//let objktID = PREVIEW;
 
 // Check if we have a viewer
 let viewerWasFound = viewerData && !viewerData.includes("false");
