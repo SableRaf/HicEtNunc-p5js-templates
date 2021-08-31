@@ -11,7 +11,7 @@
 // More hicetnunc html templates (three.js, glsl, etc) can be found at
 // https://github.com/hicetnunc2000/hicetnunc/tree/main/templates
 
-// 🤓 Note: replace thumbnail.png with your own thumbnail
+// 🤓 Note: replace thumbnail.png with your own thumbnail (512×512 pixels is best)
 
 // **************************
 // *    HIC ET NUNC DATA    *

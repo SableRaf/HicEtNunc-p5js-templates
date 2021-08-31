@@ -9,7 +9,7 @@
 // post: https://stackoverflow.com/questions/49643660/threejs-loading-screen
 // demo: https://jsfiddle.net/vfug1adn/19/
 
-// 🤓 Note: replace thumbnail.png with your own thumbnail
+// 🤓 Note: replace thumbnail.png with your own thumbnail (512×512 pixels is best)
 
 // **************************
 // *       PARAMETERS       *
