@@ -83,7 +83,14 @@ function draw() {
   fill("black");
   text("Canvas size = " + canvasSize, 0, -fontSize);
   text("Window scale = " + windowScale.toFixed(2), 0, fontSize);
-  text(`Fullscreen is ${fullScreen}`, 0, 4*fontSize);
+
+  var notFS = fullScreen ? " " : " not ";
+  if (fullScreen) {
+    fill(20, 200, 150);
+  } else {
+    fill(220, 10, 150);
+  }
+  text(`The sketch is${notFS}full screen`, 0, 3 * fontSize);
 
   // Create a screen reader accessible description for the canvas
   describe(
@@ -148,8 +155,23 @@ function centerCanvas() {
 function isFullscreen() {
   if (
     document.fullscreenElement ||
-    window.screen.height - window.innerHeight <= 3
+    window.screen.height - window.innerHeight <= 3 ||
+    isEdgeFullscreen()
   ) {
+    return true;
+  }
+  return false;
+}
+
+function isEdgeFullscreen() {
+  if (isEdge() && window.screen.height - window.innerHeight <= 235) {
+    return true;
+  }
+  return false;
+}
+
+function isEdge() {
+  if (window.navigator.userAgent.indexOf("Edg") > -1) {
     return true;
   }
   return false;
