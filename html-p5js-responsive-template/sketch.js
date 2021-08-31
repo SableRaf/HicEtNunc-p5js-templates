@@ -83,13 +83,14 @@ function draw() {
   fill("black");
   text("Canvas size = " + canvasSize, 0, -fontSize);
   text("Window scale = " + windowScale.toFixed(2), 0, fontSize);
-  text(`indow` + canvasSize, 0, -fontSize);
+  text(
+    `Window size: ${window.innerWidth}×${window.innerHeight}`,
+    0,
+    -3 * fontSize
+  );
 
-  if (fullScreen) {
-    fill(20, 200, 150);
-  } else {
-    fill(220, 10, 150);
-  }
+  fill(220, 10, 150);
+  if (fullScreen) fill(20, 200, 150);
   var notFS = fullScreen ? " " : " not ";
   text(`The sketch is${notFS}full screen`, 0, 3 * fontSize);
 
