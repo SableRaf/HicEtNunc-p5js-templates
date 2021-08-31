@@ -151,7 +151,6 @@ function centerCanvas() {
   s.justifyContent = "center";
 }
 
-// Doesn't work on Edge
 function isFullscreen() {
   if (
     document.fullscreenElement ||
