@@ -31,7 +31,7 @@ const referenceSize = 600;
 // if true, then the canvas cannot be larger than the reference size
 const hasMaxSize = false;
 
-// if true the canvas will be vertically and horizontally centered
+// if true the canvas will be vertically and horizontally centered inside the window
 const isCentered = true;
 
 // **************************
