@@ -155,23 +155,37 @@ function isFullscreen() {
   if (
     document.fullscreenElement ||
     window.screen.height - window.innerHeight <= 3 ||
-    isEdgeFullscreen()
+    isEdgeFullscreen() ||
+    isSafariFullscreen()
   ) {
     return true;
   }
   return false;
 }
 
-function isEdgeFullscreen() {
-  if (isEdge() && window.screen.height - window.innerHeight <= 235) {
+function isSafariFullscreen() {
+  if (document.webkitIsFullScreen) {
     return true;
   }
   return false;
 }
 
-function isEdge() {
-  if (window.navigator.userAgent.indexOf("Edg") > -1) {
+function isEdgeFullscreen() {
+  if (isUserAgent("Edg") && window.screen.height - window.innerHeight <= 235) {
     return true;
   }
   return false;
+}
+
+function isUserAgent(name) {
+  if (window.navigator.userAgent.indexOf(name) > -1) {
+    return true;
+  }
+  return false;
+}
+
+// toggle fullscreen (for testing)
+function mousePressed() {
+  let fs = fullscreen();
+  fullscreen(!fs);
 }
