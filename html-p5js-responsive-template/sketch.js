@@ -185,7 +185,7 @@ function isUserAgent(name) {
 }
 
 // toggle fullscreen (for testing)
-function mousePressed() {
-  let fs = fullscreen();
-  fullscreen(!fs);
-}
+// function mousePressed() {
+//   let fs = fullscreen();
+//   fullscreen(!fs);
+// }
