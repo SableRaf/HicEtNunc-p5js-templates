@@ -40,6 +40,7 @@ const isCentered = true;
 
 var canvasSize;
 var windowScale;
+var fullScreen;
 
 // **************************
 // *        PRELOAD         *
@@ -82,6 +83,7 @@ function draw() {
   fill("black");
   text("Canvas size = " + canvasSize, 0, -fontSize);
   text("Window scale = " + windowScale.toFixed(2), 0, fontSize);
+  text(`Fullscreen is ${fullScreen}`, 0, 4*fontSize);
 
   // Create a screen reader accessible description for the canvas
   describe(
@@ -118,6 +120,8 @@ function keyPressed() {
 // **************************
 
 function setDimensions() {
+  fullScreen = isFullscreen();
+
   // This is how we constrain the canvas to the smallest dimension of the window
   // Thanks to Maxim Schoemaker for this trick! twitter.com/MaximSchoemaker - maximschoemaker.com
   canvasSize = min(windowWidth, windowHeight);
@@ -138,4 +142,15 @@ function centerCanvas() {
   s.height = "100vh";
   s.alignItems = "center";
   s.justifyContent = "center";
+}
+
+// Doesn't work on Edge
+function isFullscreen() {
+  if (
+    document.fullscreenElement ||
+    window.screen.height - window.innerHeight <= 3
+  ) {
+    return true;
+  }
+  return false;
 }
